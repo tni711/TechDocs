@@ -126,85 +126,8 @@ URL : https://www.google.com/chrome
 ```
 
 ### rtags build
-    https://github.com/Andersbakken/rtags#optional-1
-    make sure set PATH to lua5.3/bin after compilation
-
-# Sqlite3 Tool
-  https://github.com/sqlitebrowser/sqlitebrowser
-
-
-# Install clang/LLVM
-https://llvm.org/
-
-
-## Install clang/llvm
-Installing llvm 3.9 can easily be done under Xenial Xerus by using the 'LLVM Debian/Ubuntu nightly packages' PPA. Just follow the steps below:
-
-    Add the archive signature:
-
-    wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-
-    Add the PPA:
-
-    sudo apt-add-repository "deb https://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.9 main"
-    sudo apt-get update
-
-    Note: There may be some authentication warnings for the llvm key which I have safely overridden on my own system. To bypass authentication, replace sudo apt-get update with
-
-    sudo apt -o Acquire::AllowInsecureRepositories=true update
-
-    Allow the Repository to reload and then run the following command:
-
-    sudo apt-get install clang-3.9 lldb-3.9
-
-    Test your installation as follows, as shown on my own Xenial system:
-
-    $ clang-3.9 --version
-    clang version 3.9.0-svn275716-1~exp1 (trunk)
-    Target: x86_64-pc-linux-gnu
-    Thread model: posix
-    InstalledDir: /usr/bin
-
-## Making latest version available as clang
-https://blog.kowalczyk.info/article/k/how-to-install-latest-clang-6.0-on-ubuntu-16.04-xenial-wsl.html
-
-This version is installed side-by-side with the default clang 3.8. To run it, you have to explicitly say clang-6.0. clang will either refer to 3.8 (if you¡¯ve installed it) or nothing at all.
-
-You can reconfigure the system so that clang refers to clang 6:
-
->sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-3.8 100
->sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-5.0 800
->sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-6.0 1000
->sudo update-alternatives --install /usr/bin/clang++ clang /usr/bin/clang-3.8 100
->sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-3.8 100
->sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-5.0 800
->sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-6.0 1000
->sudo update-alternatives --config clang
->sudo update-alternatives --config clang++
-
-
-http://llvm.org/
-
-## Build from source
-list tags info
-svn ls -v http://llvm.org/svn/llvm-project/llvm/tags
-check out a particular tag version
-
-Build from source
-http://clang.llvm.org/get_started.html
-
-mkdir $HOME/llvm-6.0.1
-cd $HOME/llvm-6.0.1
-svn co http://llvm.org/svn/llvm-project/llvm/tags/RELEASE_601/final $HOME/llvm
-cd $HOME/llvm-6.0.1/llvm/tools
-svn co http://llvm.org/svn/llvm-project/cfe/tags/RELEASE_601/final clang
-cd $HOME/llvm-6.0.1/llvm/tools/clang/tools
-svn co http://llvm.org/svn/llvm-project/clang-tools-extra/tags/RELEASE_601/final extra
-cd $HOME/llvm-6.0.1
-mkdir build
-cmake -G "Unix Makefiles" ../llvm
-make
-
+https://github.com/Andersbakken/rtags#optional-1
+make sure set PATH to lua5.3/bin after compilation
 
 # rtags
 https://github.com/Andersbakken/rtags
