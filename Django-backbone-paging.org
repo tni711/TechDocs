@@ -1,0 +1,88 @@
+
+* Django and Backbone Paging API
+
+https://github.com/backbone-paginator/backbone.paginator/blob/v2.0.8/README.rst
+
+A pageable, drop-in replacement for Backbone.Collection called Backbone.PageableCollection.
+
+To adapt to an existing server API that do not use will_paginate keys, you can configure the
+queryParams object hash to map state keys to the query parameters your server will
+accept. Those query parameters will be in the query string of the URL used for fetching. You
+can also put extra items into queryParams and they will be in the query string as
+is. Setting null as the value of any mapping will remove it from the query string. Finally,
+the values in the queryParams can be either a literal value or a parameter-less function
+that returns a value.
+
+
+** Django REST Paging View
+
+https://medium.com/@zoejoyuliao/django-rest-framework-add-custom-pagination-c758a4f127fa
+
+To create a custom pagination serializer class, you should subclass
+pagination.BasePagination, override the paginate_queryset(self, queryset, request,
+view=None) and get_paginated_response(self, data) methods:
+
+- The paginate_queryset method passes the initial queryset and should return an iterable
+  object that contains only the data in the requested page.
+
+- The get_paginated_response method passes the serialized page data and should return a
+  Response instance.
+
+- per_page refers to the number of record per page that can be setup per call.
+
+#+BEGIN_SRC python
+
+  class CustomPageNumberPagination(PageNumberPagination):
+      page = 1
+      page_size = 10
+      page_size_query_param = 'per_page'
+      def get_paginated_response(self, data):
+	  return Response({
+	      'state': {
+		      'total_pages': math.ceil(self.page.paginator.count / self.page_size),
+		      'total_entries': self.page.paginator.count,
+		      'page': int(self.request.GET.get('page', self.page)), # can not set default = self.page
+		      'per_page': int(self.request.GET.get(self.page_size_query_param, self.page_size)),
+	      },
+	      'data': data
+	  })
+
+  class EventList(generics.ListCreateAPIView):
+      serializer_class = EventSerializer
+      queryset = Event.objects.all()
+      #pagination_class = PageNumberPagination
+      pagination_class = CustomPageNumberPagination
+#+END_SRC
+
+
+** Front-end Backbone page scrolling
+
+#+BEGIN_SRC js
+
+  //INFO - setup
+  eventPages = new App.Collections.EventList();
+  pageObj = eventPages.getFirstPage({
+	  headers: {'Authorization' : user_token },
+  }).done(function(res) {
+	  eventList = new App.Collections.EventList( res.data, {mode: 'server'} );
+	  eventListView = new App.Views.EventListView( {
+	  collection: eventList
+  });
+  $('#cardlist').append(eventListView.render().el);
+
+  //INFO - paging triggered by scrolling event
+  $(document).ready(function() {
+      $(window).scroll(function() {
+	  if($(window).scrollTop() + $(window).height() == $(document).height()) {
+	      pageObj = eventPages.getNextPage({
+		      headers: {'Authorization' : user_token },
+	      }).done(function(res) {
+	      _.each(res.data, function(item) {
+		      //console.log(item);
+		      eventList.add(item);
+	      })
+	      });
+	  }
+      });
+  });
+#+END_SRC
