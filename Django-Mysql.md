@@ -47,10 +47,7 @@ Check the current method used:
 	+------------------+-------------------------------------------+-----------------------+-----------+
 	| user             | authentication_string                     | plugin                | host      |
 	+------------------+-------------------------------------------+-----------------------+-----------+
-	| root             |                                           | auth_socket           | localhost |
-	| mysql.session    | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE | mysql_native_password | localhost |
-	| mysql.sys        | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE | mysql_native_password | localhost |
-	| debian-sys-maint | *BCCF31E8BD5218560B6D2FDF28EB089B2630A5BA | mysql_native_password | localhost |
+	+ ....
 	+------------------+-------------------------------------------+-----------------------+-----------+
 	4 rows in set (0.00 sec)
 
@@ -67,10 +64,7 @@ Change to native method:
 	+------------------+-------------------------------------------+-----------------------+-----------+
 	| user             | authentication_string                     | plugin                | host      |
 	+------------------+-------------------------------------------+-----------------------+-----------+
-	| root             | *36589495D35C87F5A88913E093D0E3CD6801B00D | mysql_native_password | localhost |
-	| mysql.session    | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE | mysql_native_password | localhost |
-	| mysql.sys        | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE | mysql_native_password | localhost |
-	| debian-sys-maint | *BCCF31E8BD5218560B6D2FDF28EB089B2630A5BA | mysql_native_password | localhost |
+	+ ....
 	+------------------+-------------------------------------------+-----------------------+-----------+
 	4 rows in set (0.01 sec)
 
